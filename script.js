@@ -26,6 +26,7 @@ async function displayWeather(e) {
         const windSpeed = data.wind.speed;
 
         result.classList.remove('hidden');
+        errorDisplay.innerHTML = '';
 
         weather.innerHTML = weatherDescription[0].toUpperCase() + weatherDescription.slice(1);
         others[0].innerHTML = `Temperature: ${(temp-273).toFixed(0)}&ordm;C`;
