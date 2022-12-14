@@ -43,7 +43,7 @@ async function displayWeather(e) {
 
 // Functions
 async function getCoords(location) {
-    const res = await fetch(`http://api.openweathermap.org/ge/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`, {mode: "cors"});
+    const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`, {mode: "cors"});
     const data = await res.json();
     const {lat, lon} = data[0];
     return {lat, lon};
