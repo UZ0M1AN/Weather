@@ -37,7 +37,7 @@ async function displayWeather(e) {
     catch (err) {
         result.classList.add('hidden');
         err.message = 'Could not get the weather of your city! Try again...';
-        errorDisplay.innerHTML = err.message;
+        if (!errorDisplay.innerHTML) errorDisplay.innerHTML = err.message;
     }
 }
 
@@ -52,12 +52,11 @@ async function getCoords(location) {
         return {lat, lon};
     }
     catch (err) {
-        err.message = 'Your city does not exist! Check your spelling and try again...'
-        console.error(err)
+        err.message = 'Something went wrong! Ensure you have internet connection and your city is spelt correctly, then try again...'
+        errorDisplay.innerHTML = err.message;
     }
     
 }
-// getCoords('london')
 
 async function getWeather(location) {
     try {
@@ -68,6 +67,6 @@ async function getWeather(location) {
     }
     catch (err) {
         err.message = 'Could not get the coordinates of your city! Try again...'
-        console.error(err)
+        if (!errorDisplay.innerHTML) errorDisplay.innerHTML = err.message;
     }
 }
