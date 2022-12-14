@@ -35,7 +35,8 @@ async function displayWeather(e) {
     }
     catch (err) {
         result.classList.add('hidden');
-        errorDisplay.innerHTML = 'Could not get the weather of your city! Try again...';
+        err.message = 'Could not get the weather of your city! Try again...';
+        errorDisplay.innerHTML = err.message;
     }
 }
 
@@ -43,22 +44,29 @@ async function displayWeather(e) {
 
 // Functions
 async function getCoords(location) {
-    const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`, {mode: "cors"});
-    const data = await res.json();
-    const {lat, lon} = data[0];
-    return {lat, lon};
+    try {
+        const res = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`, {mode: "cors"});
+        const data = await res.json();
+        const {lat, lon} = data[0];
+        return {lat, lon};
+    }
+    catch (err) {
+        err.message = 'Your city does not exist! Check your spelling and try again...'
+        console.error(err)
+    }
     
 }
 // getCoords('london')
 
 async function getWeather(location) {
-    // try {
+    try {
         const {lat, lon} = await getCoords(location);
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`, {mode: 'cors'});
         const data = await res.json();
         return data;
-    // }
-    // catch (err) {
-    //     err.message = 'Could not get the weather data of your city!'
-    // }
+    }
+    catch (err) {
+        err.message = 'Could not get the coordinates of your city! Try again...'
+        console.error(err)
+    }
 }
