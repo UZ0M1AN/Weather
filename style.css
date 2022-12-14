@@ -81,6 +81,13 @@ li {
     list-style-type: none;
 }
 
+.error {
+    font-size: 2.5rem;
+    color: hsl(0, 50%, 50%);
+    text-align: center;
+    margin-top: 2rem;
+}
+
 
 /* Helpers */
 .hidden {
